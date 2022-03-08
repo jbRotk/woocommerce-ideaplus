@@ -19,6 +19,7 @@
  * @package    Ideaplus_Plugin
  * @subpackage Ideaplus_Plugin/includes
  */
+if(!defined('ABSPATH')){ exit; }
 class Ideaplus_Plugin_Activator {
 
 	/**

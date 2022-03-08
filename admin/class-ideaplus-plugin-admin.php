@@ -19,6 +19,7 @@
  * @subpackage Ideaplus_Plugin/admin
  * @package    Ideaplus_Plugin
  */
+if(!defined('ABSPATH')){ exit; }
 class Ideaplus_Plugin_Admin
 {
 
@@ -114,6 +115,9 @@ class Ideaplus_Plugin_Admin
         if (!$is_connected) {
             $tab = 'connect';
         }
+        //加载必要的js与css
+        $this->enqueue_styles();
+        $this->enqueue_scripts();
         switch ($tab) {
             case 'dashboard':
                 $this->load_dashboard_page();
@@ -135,6 +139,7 @@ class Ideaplus_Plugin_Admin
 
     protected function load_connect_page()
     {
+
         require_once plugin_dir_path(__FILE__) . 'partials/ideaplus-plugin-admin-connect.php';
     }
 

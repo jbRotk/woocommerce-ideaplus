@@ -24,6 +24,7 @@
  * @subpackage Ideaplus_Plugin/includes
  * @since      1.0.0
  */
+if(!defined('ABSPATH')){ exit; }
 class Ideaplus_Plugin_Rest_Api_Route extends WC_REST_Controller
 {
 

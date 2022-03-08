@@ -1,8 +1,8 @@
 <div class="wrap">
-    <link rel="stylesheet" href="<?php
-    echo Ideaplus_Plugin_Func::get_admin_asset_url('css/ideaplus-plugin-admin.css'); ?>">
-    <script type="text/javascript" src="<?php
-    echo Ideaplus_Plugin_Func::get_admin_asset_url('js/ideaplus-plugin-admin.js'); ?>"></script>
+<!--    <link rel="stylesheet" href="--><?php
+//    echo Ideaplus_Plugin_Func::get_admin_asset_url('css/ideaplus-plugin-admin.css'); ?><!--">-->
+<!--    <script type="text/javascript" src="--><?php
+//    echo Ideaplus_Plugin_Func::get_admin_asset_url('js/ideaplus-plugin-admin.js'); ?><!--"></script>-->
     <h2>Ideaplus Options</h2>
     <?php
     $active_tab   = sanitize_text_field(isset($_GET['tab']) ? $_GET['tab'] : 'display_options');

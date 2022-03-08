@@ -19,6 +19,7 @@
  * @subpackage Ideaplus_Plugin/public
  * @package    Ideaplus_Plugin
  */
+if(!defined('ABSPATH')){ exit; }
 class Ideaplus_Plugin_Product extends Ideaplus_Plugin_Public
 {
     protected $class_name = 'product';

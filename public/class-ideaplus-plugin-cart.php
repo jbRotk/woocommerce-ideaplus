@@ -6,6 +6,7 @@
  * Date: 2022/2/16
  * Time: 11:32:03
  */
+if(!defined('ABSPATH')){ exit; }
 class Ideaplus_Plugin_Cart extends Ideaplus_Plugin_Public
 {
     protected $class_name = 'cart';
