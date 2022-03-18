@@ -16,5 +16,5 @@
     <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <?php
 $product = wc_get_product(get_the_ID());
-echo esc_js($product->get_name());
+echo esc_html($product->get_name());
 ?>

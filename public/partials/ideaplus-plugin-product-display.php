@@ -22,10 +22,14 @@ foreach ($data as $key => $item) {
     $meta_data[$item->key] = json_decode($item->value, true);
 }
 $meta_data = json_encode($meta_data);
+
+$meta_input = '<input type="text" id="meta_data" style="display:none" value="'.esc_attr( $meta_data ).'">';
+echo $meta_input;
 ?>
 
 <script type="text/javascript">
-	var meta_data = <?php echo $meta_data?>;
+	//var meta_data = <?php //echo esc_js($meta_data)?>//;
+    var meta_data = JSON.parse(document.getElementById('meta_data').value);
 	jQuery( document ).ready( function () {
 		Ideaplus_Plugin_Goods.init( meta_data );
 		Ideaplus_Plugin_Goods.render();

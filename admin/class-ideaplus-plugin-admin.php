@@ -19,7 +19,9 @@
  * @subpackage Ideaplus_Plugin/admin
  * @package    Ideaplus_Plugin
  */
+
 if(!defined('ABSPATH')){ exit; }
+
 class Ideaplus_Plugin_Admin
 {
 

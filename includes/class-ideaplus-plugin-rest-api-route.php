@@ -103,6 +103,41 @@ class Ideaplus_Plugin_Rest_Api_Route extends WC_REST_Controller
                 ],
             ],
         ]);
+        register_rest_route($this->namespace, '/' . $this->ideaplus_plugin . '/syncOrderTrackInfo', [
+            [
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => [$this, 'sync_order_track_info'],
+                'permission_callback' => [$this, 'get_items_permissions_check'],
+                'show_in_index'       => false,
+                'args'                => [
+                    'order_id' => [
+                        'required'    => true,
+                        'type'        => 'integer',
+                        'description' => __('Ideaplus OrderID', 'ideaplus'),
+                    ],
+                    'number' => [
+                        'required'    => true,
+                        'type'        => 'string',
+                        'description' => __('Ideaplus Order Tracking Number', 'ideaplus'),
+                    ],
+                    'url' => [
+                        'required'    => true,
+                        'type'        => 'url',
+                        'description' => __('Ideaplus Order Tracking Url', 'ideaplus'),
+                    ],
+                    'company' => [
+                        'required'    => true,
+                        'type'        => 'string',
+                        'description' => __('Ideaplus Order Tracking Company', 'ideaplus'),
+                    ],
+                    'company_code' => [
+                        'required'    => true,
+                        'type'        => 'string',
+                        'description' => __('Ideaplus Order Tracking Company Code', 'ideaplus'),
+                    ],
+                ],
+            ],
+        ]);
     }
 
     /**
@@ -149,6 +184,41 @@ class Ideaplus_Plugin_Rest_Api_Route extends WC_REST_Controller
         $exists_goods_ids  = Ideaplus_Plugin_Func::get_option('goods_ids', [], Ideaplus_Plugin_Func::SYNCED_GOODS_IDS_KEY);
         $all_goods_ids     = array_merge($request_goods_ids, $exists_goods_ids);
         Ideaplus_Plugin_Func::update_option('goods_ids', $all_goods_ids, Ideaplus_Plugin_Func::SYNCED_GOODS_IDS_KEY);
+        return [
+            'error'   => "success",
+            'message' => 'success',
+        ];
+    }
+
+    /**
+     * @description Store order track info with ideaplus
+     */
+    public function sync_order_track_info($request)
+    {
+        $order_id = $request->get_param('order_id');
+        $order = wc_get_order($order_id);
+        if (!$order) {
+            return [
+                'error' => 'Failed to get order',
+            ];
+        }
+
+        $track_number = $request->get_param('number');
+        $track_url = $request->get_param('url');
+        $track_company = $request->get_param('company');
+        $track_company_code = $request->get_param('company_code');
+
+        wc_update_order_item_meta($order_id, '_ideaplus_track_number', [
+            'number' => $track_number,
+            'url' => $track_url,
+            'company' => $track_company,
+            'company_code' => $track_company_code,
+        ]);
+
+        // add order note
+        $note_massage = sprintf(__('The order was shipped and the tracking number is: %s The tracking link is: %s', 'ideaplus'), $track_number, $track_url . $track_number );
+        $order->add_order_note($note_massage);
+
         return [
             'error'   => "success",
             'message' => 'success',
