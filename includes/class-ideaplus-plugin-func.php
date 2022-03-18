@@ -28,8 +28,6 @@ class Ideaplus_Plugin_Func
 {
     const APP_SETTING_KEY = 'woocommerce-ideaplus-option';
 
-    const SETTING_KEY_WC_KEY = 'wc_api_key';
-
     const SYNCED_GOODS_IDS_KEY = 'woocommerce-ideaplus-synced_goods_ids';
 
     /**
@@ -97,7 +95,7 @@ class Ideaplus_Plugin_Func
     {
         global $wpdb;
         // Get the API key
-        $app_name     = getConfig('APP_NAME');
+        $app_name     = ideaplus_get_config('APP_NAME');
         $consumer_key = $wpdb->get_var($wpdb->prepare("SELECT truncated_key FROM {$wpdb->prefix}woocommerce_api_keys WHERE description LIKE %s ORDER BY key_id DESC LIMIT 1", '%' . esc_sql($wpdb->esc_like(wc_clean($app_name))) . '%'));
         //if not found by description, it was probably manually created. try the last used key instead
         if (!$consumer_key) {
@@ -132,34 +130,25 @@ class Ideaplus_Plugin_Func
      */
     public static function is_connected($is_force = false)
     {
-<<<<<<< HEAD
         // if not force, get status from cache
         if (!$is_force) {
             $connected_status = Ideaplus_Plugin_Func::get_option('status_connected');
-            if (is_bool($connected_status) && $connected_status) {
+            if (is_bool($connected_status)) {
                 return $connected_status;
             }
         }
-=======
->>>>>>> 794fbdf... upt
         $ideaplus_key = Ideaplus_Plugin_Func::get_option('token', '');
         $customer_key = Ideaplus_Plugin_Func::get_customer_key();
         if (empty($ideaplus_key) || empty($customer_key)) {
             return false;
         }
-        $wc_api_key = Ideaplus_Plugin_Func::get_option(Ideaplus_Plugin_Func::SETTING_KEY_WC_KEY);
-        if ($customer_key != $wc_api_key) {
-            return false;
-        }
-        if ($is_force) {
-            // check ideaplus key and woocommerce key validate
-            $server = Ideaplus_Plugin_Server::getInstance();
-            $server->get('shop/check');
-            $connected_status = $server->isSuccess();
-            return $connected_status;
-        }
-        
-        return true;
+        // check ideaplus key and woocommerce key validate
+        $server = Ideaplus_Plugin_Server::getInstance();
+        $server->get('shop/check');
+        $connected_status = $server->isSuccess();
+        // update store cache
+        Ideaplus_Plugin_Func::update_option($connected_status, 'status_connected');
+        return $server->isSuccess();
     }
 
     /**

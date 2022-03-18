@@ -61,8 +61,6 @@
     color: white;
     border: 1px solid #aaaaaa;
     cursor: pointer;
-    font-size: 14px;
-    padding: 0;
 }
 .avatar-button-group button:hover {
     border-color: black;

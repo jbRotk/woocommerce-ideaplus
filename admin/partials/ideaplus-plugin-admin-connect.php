@@ -10,8 +10,8 @@ include 'ideaplus-plugin-admin-header.php'; ?>
             order fulfillment.</p>
     </div>
     <?php
-    $app_name = getConfig('APP_NAME');
-    $authLink = getConfig('IDEAPLUS_API_HOST') . 'v1/basic/auth?key=' . urlencode(Ideaplus_Plugin_Func::get_customer_key()) . '&site=' . urlencode(Ideaplus_Plugin_Func::curPageURL()) . '&token=' . urlencode(Ideaplus_Plugin_Func::get_option('token', '')) . '&return_url=' . urlencode(get_admin_url(null, 'admin.php?page=' . $app_name));
+    $app_name = ideaplus_get_config('APP_NAME');
+    $authLink = ideaplus_get_config('IDEAPLUS_API_HOST') . 'v1/basic/auth?key=' . urlencode(Ideaplus_Plugin_Func::get_customer_key()) . '&site=' . urlencode(Ideaplus_Plugin_Func::curPageURL()) . '&token=' . urlencode(Ideaplus_Plugin_Func::get_option('token', '')) . '&return_url=' . urlencode(get_admin_url(null, 'admin.php?page=' . $app_name));
     echo '<a id="connect-button" href="' . esc_url($authLink) . '" class="button-primary' . esc_attr((!empty($issues) ? 'disabled' : '')) . '" target="_blank">Connect Now</a>';
     ?>
 </section>

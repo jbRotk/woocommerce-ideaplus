@@ -211,16 +211,12 @@ var Ideaplus_Plugin_Goods;
 					if (item.type === 1) {
 						item.value = $('option[value="'+ $('#' + item.id).val() +'"]').html();
 						item.value_id = $('#' + item.id).val().split('_').slice(-1)[0];
-					} else if(item.type === 3) {
-						item.value = that.effect ? $('#image-data').val() : $('#' + item.id).val();
-						item.value_id = $('#' + item.id).data('valueid');
 					} else {
 						item.value = $('#' + item.id).val();
 						item.value_id = $('#' + item.id).data('valueid');
 					}
 				})
-				// json.variations['value'] = $('#image-data').val();
-				// alert(JSON.stringify(json))
+				console.log(json)
 				$('#ideaplusAttrs').val(JSON.stringify(json));
 			});
 			$('.thwepo-extra-options select').trigger('change')
@@ -235,8 +231,6 @@ var Ideaplus_Plugin_Goods;
 			// }
 			
 			if (that.effect) {
-				let html = '<input type="hidden" name="image-data" id="image-data" value="" />'
-				$(document.body).append(html)
 				var cropperAvatar = {
 					avatar : null,
 					style : '',
@@ -462,14 +456,6 @@ var Ideaplus_Plugin_Goods;
 								// designModal.resetImage();
 							},
 							ready: function(e, a) {
-								$('#avatar-area, .cropper-container').css({
-									'height': $('#avatar-container').width() * (400 / 500) + 'px',
-									'width': 'auto'
-								})
-								$('.cropper-crop-box').css({
-									'width': $('#avatar-container').width() + 'px',
-									'height': $('#avatar-container').width() * (400 / 500) + 'px',
-								})
 								$('.cropper-crop-box').prepend($('.avatar-template').prop("outerHTML"));
 								$('.cropper-view-box').prop('id', 'cropper-view-box');
 								cropperAvatar.setStyle();

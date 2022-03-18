@@ -28,7 +28,6 @@ echo $meta_input;
 ?>
 
 <script type="text/javascript">
-	//var meta_data = <?php //echo esc_js($meta_data)?>//;
     var meta_data = JSON.parse(document.getElementById('meta_data').value);
 	jQuery( document ).ready( function () {
 		Ideaplus_Plugin_Goods.init( meta_data );

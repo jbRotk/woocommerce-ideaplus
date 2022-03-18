@@ -119,7 +119,6 @@ class Ideaplus_Plugin_Public
     protected function get_class_name()
     {
         $name = __CLASS__;
-//        echo $name;
         $arr  = explode('_', $name);
         $zone = strtolower(end($arr));
         return $zone;

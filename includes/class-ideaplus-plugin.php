@@ -127,18 +127,6 @@ class Ideaplus_Plugin
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-ideaplus-plugin-public.php';
         $this->loader = new Ideaplus_Plugin_Loader();
-
-        $this->loader->add_action("plugins_loaded",$this,"addShipping", 20);
-
-    }
-
-    /**
-     *
-     */
-    public function addShipping()
-    {
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ideaplus-plugin-shipping.php';
-        Ideaplus_Plugin_Shipping::init();
     }
 
     /**
@@ -172,46 +160,7 @@ class Ideaplus_Plugin
         $this->loader->add_action('rest_api_init', $this, 'define_rest_route_hooks', 20);
         $this->loader->add_action('wp_ajax_ideaplus_ajax_check_auth_status', $plugin_admin, 'check_auth_status');
         $this->loader->add_action('wp_ajax_ideaplus_ajax_clear_cache', $plugin_admin, 'clear_cache');
-        $this->loader->add_action( 'add_meta_boxes', $this, 'add_meta_box' );	
-        
         //add_action( 'wp_ajax_ajax_force_check_connect_status', array( 'Printful_Integration', 'ajax_force_check_connect_status' ) );
-    }
-
-    public function add_meta_box()
-    {
-        add_meta_box( 'woocommerce-advanced-shipment-tracking', __( 'Shipment Tracking', 'woo-advanced-shipment-tracking' ), array( $this, 'meta_box' ), 'shop_order', 'side', 'high' );
-    }
-
-    public function meta_box()
-    {
-        global $post;
-        $tracking_items = $this->get_order_track_info($post->ID);
-        if ($tracking_items) {
-            $tracking_link = $tracking_items['url'] . $tracking_items['number'];
-            echo '<div class="tracking-info">';
-            echo '<p>Ideaplus Tracking info</p>';
-            echo '<p>'.$tracking_items['company_code'] . ' ' . $tracking_items['company'] . '-<a target="_blank" href="'. $tracking_link .'">' . $tracking_items['number'] .'</a></p>';
-            echo '<a class="button button-primary btn_ast2 button-save-form" target="_blank" href="' . $tracking_link . '">Tracking detail</a>';
-            echo '</div>';
-        }
-    }
-
-    /**
-     * @description get order track info
-     */
-    private function get_order_track_info($order_id)
-    {
-        if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-            $tracking_items = get_post_meta( $order_id, '_ideaplus_track_number', true );
-        } else {
-            $tracking_items = wc_get_order_item_meta($order_id, '_ideaplus_track_number', true );			
-        }
-        
-        if ( is_array( $tracking_items ) ) {
-            return $tracking_items;
-        } else {
-            return array();
-        }
     }
 
     /**

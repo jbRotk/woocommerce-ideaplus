@@ -110,54 +110,51 @@ include 'ideaplus-plugin-admin-header.php'; ?>
             margin-right: 20px;
         }
     </style>
-    <?php
-    $orders = Ideaplus_Plugin_Server::getInstance()->get('order/statusCount');
-    ?>
     <section>
         <div class="title">
             <span>Orders</span>
         </div>
         <div class="grid-container">
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/orders/list?status=1&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')) ?>"
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=1&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')) ?>"
                target="_blank">
                 <p class="order-item-text">Need approval</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][1]['order_count']) ? $orders['data'][1]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/orders/list?status=3&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id')); ?>"
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=3&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id')); ?>"
                target="_blank">
                 <p class="order-item-text">On hold</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][3]['order_count']) ? $orders['data'][3]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/orders/list?status=20&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=20&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
                target="_blank">
                 <p class="order-item-text">Waiting for fulfillment</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][20]['order_count']) ? $orders['data'][20]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/orders/list?status=21&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=21&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
                target="_blank">
                 <p class="order-item-text">Being fulfilled</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][21]['order_count']) ? $orders['data'][21]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/orders/list?status=30&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=30&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
                target="_blank">
                 <p class="order-item-text">In transit</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][30]['order_count']) ? $orders['data'][30]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/orders/list?status=31&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=31&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
                target="_blank">
                 <p class="order-item-text">Delivered</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][31]['order_count']) ? $orders['data'][31]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
         </div>
@@ -168,31 +165,31 @@ include 'ideaplus-plugin-admin-header.php'; ?>
         </div>
         <div class="grid-container">
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/Orders/list') ?>">
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/Orders/list') ?>">
                 <img class="icon" id="orders" src="<?php
                 echo Ideaplus_Plugin_Func::get_admin_asset_url('images/u61.png'); ?>" alt="">
                 <span class="order-item-text">Orders</span>
             </a>
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/Product/product-list'); ?>" target="_blank">
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/Product/product-list'); ?>" target="_blank">
                 <img class="icon" id="products" src="<?php
                 echo Ideaplus_Plugin_Func::get_admin_asset_url('images/u65.png'); ?>" alt="">
                 <span class="order-item-text">Products</span>
             </a>
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/Billing/list') ?>" target="_blank">
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/Billing/list') ?>" target="_blank">
                 <img class="icon" id="billing" src="<?php
                 echo Ideaplus_Plugin_Func::get_admin_asset_url('images/u69.png'); ?>" alt="">
                 <span class="order-item-text">Billing</span>
             </a>
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/Setting/my-account') ?>" target="_blank">
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/Setting/my-account') ?>" target="_blank">
                 <img class="icon" id="account" src="<?php
                 echo Ideaplus_Plugin_Func::get_admin_asset_url('images/u73.png'); ?>" alt="">
                 <span class="order-item-text">Account</span>
             </a>
             <a class="order-item" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/Setting/shippingProfiles') ?>" target="_blank">
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/Setting/shippingProfiles') ?>" target="_blank">
                 <img class="icon" id="shipping" src="<?php
                 echo Ideaplus_Plugin_Func::get_admin_asset_url('images/u77.png'); ?>" alt="">
                 <span class="order-item-text">Shipping</span>
@@ -205,7 +202,7 @@ include 'ideaplus-plugin-admin-header.php'; ?>
         </div>
         <div class="grid-container">
             <a class="main-item-col" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/Help/contactUs') ?>" target="_blank">
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'helpcenter') ?>" target="_blank">
                 <img src="<?php
                 echo Ideaplus_Plugin_Func::get_admin_asset_url('images/u83.png'); ?>">
                 <div class="main-item-text">
@@ -214,7 +211,7 @@ include 'ideaplus-plugin-admin-header.php'; ?>
                 </div>
             </a>
             <a class="main-item-col" href="<?php
-            echo esc_url(getConfig('IDEAPLUS_HOST') . 'views/user/Help/category') ?>" target="_blank">
+            echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/Help/category') ?>" target="_blank">
                 <img src="<?php
                 echo Ideaplus_Plugin_Func::get_admin_asset_url('images/u88.png'); ?>">
                 <div class="main-item-text">

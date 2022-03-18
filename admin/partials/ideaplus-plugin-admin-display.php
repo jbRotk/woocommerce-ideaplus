@@ -45,8 +45,8 @@
         if (!$is_connected): ?>
             <div id='connect-content'>
                 <?php
-                $app_name = getConfig('APP_NAME');
-                $authLink = getConfig('IDEAPLUS_API_HOST') . 'v1/basic/auth?key=' . urlencode($customer_key) . '&site=' . urlencode(Ideaplus_Plugin_Func::curPageURL()) . '&token=' . urlencode($ideaplus_key) . '&return_url=' . urlencode(get_admin_url(null, 'admin.php?page=' . $app_name));
+                $app_name = ideaplus_get_config('APP_NAME');
+                $authLink = ideaplus_get_config('IDEAPLUS_API_HOST') . 'v1/basic/auth?key=' . urlencode($customer_key) . '&site=' . urlencode(Ideaplus_Plugin_Func::curPageURL()) . '&token=' . urlencode($ideaplus_key) . '&return_url=' . urlencode(get_admin_url(null, 'admin.php?page=' . $app_name));
                 echo '<a href="' . esc_url($authLink) . '" class="button button-primary printful-connect-button ' . esc_attr((!empty($issues) ? 'disabled' : '')) . '" target="_blank">' . 'Connect' . '</a>';
                 ?>
             </div>
