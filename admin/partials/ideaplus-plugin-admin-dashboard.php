@@ -110,9 +110,6 @@ include 'ideaplus-plugin-admin-header.php'; ?>
             margin-right: 20px;
         }
     </style>
-    <?php
-    $orders = Ideaplus_Plugin_Server::getInstance()->get('order/statusCount');
-    ?>
     <section>
         <div class="title">
             <span>Orders</span>
@@ -122,42 +119,42 @@ include 'ideaplus-plugin-admin-header.php'; ?>
             echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=1&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')) ?>"
                target="_blank">
                 <p class="order-item-text">Need approval</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][1]['order_count']) ? $orders['data'][1]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
             <a class="order-item" href="<?php
             echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=3&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id')); ?>"
                target="_blank">
                 <p class="order-item-text">On hold</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][3]['order_count']) ? $orders['data'][3]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
             <a class="order-item" href="<?php
             echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=20&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
                target="_blank">
                 <p class="order-item-text">Waiting for fulfillment</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][20]['order_count']) ? $orders['data'][20]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
             <a class="order-item" href="<?php
             echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=21&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
                target="_blank">
                 <p class="order-item-text">Being fulfilled</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][21]['order_count']) ? $orders['data'][21]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
             <a class="order-item" href="<?php
             echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=30&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
                target="_blank">
                 <p class="order-item-text">In transit</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][30]['order_count']) ? $orders['data'][30]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
             <a class="order-item" href="<?php
             echo esc_url(ideaplus_get_config('IDEAPLUS_HOST') . 'views/user/orders/list?status=31&shop_id=' . Ideaplus_Plugin_Func::get_option('shop_id', '')); ?>"
                target="_blank">
                 <p class="order-item-text">Delivered</p>
-                <p class="order-item-num"><?php echo esc_html(isset($orders['data'][31]['order_count']) ? $orders['data'][31]['order_count'] : 0)?></p>
+                <p class="order-item-num">0</p>
                 <p class="order-item-btn">View full</p>
             </a>
         </div>

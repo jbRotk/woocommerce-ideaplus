@@ -28,8 +28,6 @@ class Ideaplus_Plugin_Func
 {
     const APP_SETTING_KEY = 'woocommerce-ideaplus-option';
 
-    const SETTING_KEY_WC_KEY = 'wc_api_key';
-
     const SYNCED_GOODS_IDS_KEY = 'woocommerce-ideaplus-synced_goods_ids';
 
     /**
@@ -109,14 +107,17 @@ class Ideaplus_Plugin_Func
     public static function curPageURL()
     {
         $pageURL = 'http';
-        if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+        $httpTag = isset($_SERVER["HTTPS"]) ? sanitize_text_field($_SERVER["HTTPS"]) : null;
+        if ($httpTag && $httpTag == "on") {
             $pageURL .= "s";
         }
         $pageURL .= "://";
-        if ($_SERVER["SERVER_PORT"] != "80") {
-            $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+        $serverPort = isset($_SERVER["SERVER_PORT"]) ? sanitize_text_field($_SERVER["SERVER_PORT"]) : null;
+        if ($serverPort != "80") {
+            $pageURL .= sanitize_text_field($_SERVER["SERVER_NAME"]).
+            ":".$serverPort. sanitize_text_field($_SERVER["REQUEST_URI"]);
         } else {
-            $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+            $pageURL .= sanitize_text_field($_SERVER["SERVER_NAME"]) . sanitize_text_field($_SERVER["REQUEST_URI"]);
         }
         return $pageURL;
     }
@@ -132,34 +133,25 @@ class Ideaplus_Plugin_Func
      */
     public static function is_connected($is_force = false)
     {
-<<<<<<< HEAD
         // if not force, get status from cache
         if (!$is_force) {
             $connected_status = Ideaplus_Plugin_Func::get_option('status_connected');
-            if (is_bool($connected_status) && $connected_status) {
+            if (is_bool($connected_status)) {
                 return $connected_status;
             }
         }
-=======
->>>>>>> 794fbdf... upt
         $ideaplus_key = Ideaplus_Plugin_Func::get_option('token', '');
         $customer_key = Ideaplus_Plugin_Func::get_customer_key();
         if (empty($ideaplus_key) || empty($customer_key)) {
             return false;
         }
-        $wc_api_key = Ideaplus_Plugin_Func::get_option(Ideaplus_Plugin_Func::SETTING_KEY_WC_KEY);
-        if ($customer_key != $wc_api_key) {
-            return false;
-        }
-        if ($is_force) {
-            // check ideaplus key and woocommerce key validate
-            $server = Ideaplus_Plugin_Server::getInstance();
-            $server->get('shop/check');
-            $connected_status = $server->isSuccess();
-            return $connected_status;
-        }
-        
-        return true;
+        // check ideaplus key and woocommerce key validate
+        $server = Ideaplus_Plugin_Server::getInstance();
+        $server->get('shop/check');
+        $connected_status = $server->isSuccess();
+        // update store cache
+        Ideaplus_Plugin_Func::update_option($connected_status, 'status_connected');
+        return $server->isSuccess();
     }
 
     /**

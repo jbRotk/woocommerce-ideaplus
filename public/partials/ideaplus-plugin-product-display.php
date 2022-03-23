@@ -23,8 +23,7 @@ foreach ($data as $key => $item) {
 }
 $meta_data = json_encode($meta_data);
 
-$meta_input = '<input type="text" id="meta_data" style="display:none" value="'.esc_attr( $meta_data ).'">';
-echo $meta_input;
+echo '<input type="text" id="meta_data" style="display:none" value="'.esc_attr( $meta_data ).'">';
 ?>
 
 <script type="text/javascript">

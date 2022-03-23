@@ -147,7 +147,7 @@ class Ideaplus_Plugin_Server
                 'Content-Type' => 'application/json',
                 'Accept'       => 'application/json',
             ],
-            'body'       => ($data !== null && $data) ? json_encode($data, JSON_UNESCAPED_UNICODE) : null,
+            'body'       => $data !== null ? json_encode($data, JSON_UNESCAPED_UNICODE) : null,
         ];
         $result  = wp_remote_get($url, $request);
         if (is_wp_error($result)) {
@@ -172,14 +172,6 @@ class Ideaplus_Plugin_Server
             return true;
         }
         return false;
-    }
-
-    /**
-     * @description get last response body
-     */
-    public function getData()
-    {
-        return $this->lastResponseData;
     }
 
 }
