@@ -19,7 +19,7 @@ class Ideaplus_Plugin_Cart extends Ideaplus_Plugin_Public
         $this->loader->add_filter('woocommerce_add_cart_item_data', $this, 'render_add_card_data', 999, 3);
         $this->loader->add_filter('woocommerce_get_item_data', $this, 'render_data', 999, 2);
         $this->loader->add_filter('woocommerce_add_to_cart_validation', $this, 'fields_check', 99, 2);
-        //$this->loader->add_action('woocommerce_new_order_item', $this, 'render_order_meta', 99, 3);
+        $this->loader->add_action('woocommerce_new_order_item', $this, 'render_order_meta', 99, 3);
     }
 
     /**
@@ -66,6 +66,7 @@ class Ideaplus_Plugin_Cart extends Ideaplus_Plugin_Public
             }
             $upload_process_res = $this->process_file_upload($file_item);
             if (!isset($res['error'])) {
+                $_cart_item_data[$key]['custom_data'] = empty($_cart_item_data[$key]['value']) ? [] : json_decode($_cart_item_data[$key]['value'], true);
                 $_cart_item_data[$key]['value'] = $upload_process_res['url'];
                 do_action('wccpf_file_uploaded', $upload_process_res);
             } else {
@@ -107,7 +108,22 @@ class Ideaplus_Plugin_Cart extends Ideaplus_Plugin_Public
 
     public function render_order_meta($_item_id, $_values, $_cart_item_key)
     {
-        //wc_add_order_item_meta($_item_id, 'test_0', '<img src="http://192.168.32.183:8001/wp-content/uploads/2022/02/srchttp___img.jj20.com_up_allimg_1114_121420113514_201214113514-1-1200-11.jpgreferhttp___img.jj20-11.jpg" />');
+        if (empty($_values->legacy_values['product_id']) || !Ideaplus_Plugin_Func::check_product_valid($_values->legacy_values['product_id'])) {
+            return;
+        }
+        $_ideaplus_meta_data = [];
+        foreach ($_values->legacy_values as $key => $item) {
+            // search ideaplus key
+            if (strpos($key, 'ideaplus') === 0) {
+                if ($item['type'] == 3) {
+                    wc_add_order_item_meta($_item_id, $item['name'], '<img src="' . $item['value'] . '" width="120px" heigth="120px"/>');
+                } else {
+                    wc_add_order_item_meta($_item_id, $item['name'], $item['value']);
+                }
+                $_ideaplus_meta_data[$item['id']] = $item;
+            }
+        }
+        wc_add_order_item_meta($_item_id, '_ideaplus_meta_data', $_ideaplus_meta_data);
     }
 
     /**

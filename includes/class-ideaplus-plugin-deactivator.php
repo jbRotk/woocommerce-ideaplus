@@ -30,7 +30,7 @@ class Ideaplus_Plugin_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
+		echo 'deactivate';
 	}
 
 }
